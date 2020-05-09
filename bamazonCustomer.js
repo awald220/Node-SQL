@@ -26,7 +26,9 @@ connection.connect (function(err){
             message: "How many would you like to buy?",
             name: "amount"
         }
-    ])
+    ]).then(function(response){
+        console.log(`${response.id} ${response.amount}`)
+    })
     connection.end()
 });
 
