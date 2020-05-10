@@ -15,3 +15,16 @@ when they put in the id the app check to see if it is in stock
 if insufficient stock send a message
 if it does have the item the stock number is decreased appropriately 
 and the user sees the price of their items 
+
+
+
+
+make the database
+
+make connection
+
+get user input with inquirer
+
+get data from database
+
+compare data to user input 

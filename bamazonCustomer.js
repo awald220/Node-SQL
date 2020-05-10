@@ -28,6 +28,14 @@ connection.connect (function(err){
         }
     ]).then(function(response){
         console.log(`${response.id} ${response.amount}`)
+        var item = response.item;
+        var quantity = response.amount;
+
+        //var to gain access to database
+        var databaseInfo = 'SELECT * FROM products WHERE ?';
+
+        
+       
     })
     connection.end()
 });
