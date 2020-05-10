@@ -13,8 +13,10 @@ var connection = mysql.createConnection({
 connection.connect (function(err){
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
+    getId()
+});
 
-    //add question in inquirer
+function getId(){
     inquirer.prompt([
         {
             type: "input",
@@ -26,17 +28,42 @@ connection.connect (function(err){
             message: "How many would you like to buy?",
             name: "amount"
         }
-    ]).then(function(response){
-        console.log(`${response.id} ${response.amount}`)
-        var item = response.item;
-        var quantity = response.amount;
+    ]).then(function(answer){
+        var id = answer.id
+        var amount = answer.amount;
+        var query = "SELECT * FROM products WHERE ?";
+        connection.query(
+            query,
+            {
+                item_id: id
+            },
+            function(err, res){
+                if (err) throw err;
 
-        //var to gain access to database
-        var databaseInfo = 'SELECT * FROM products WHERE ?';
+                var quantity = res[0].stock_quantity;
+                console.log(quantity)
 
-        
-       
-    })
-    connection.end()
-});
-
+                if(amount > quantity){
+                    console.log("Insufficient Quantity!")
+                } else{
+                  var newQuantity = stock_quantity =- amount;
+                  var query = "UPDATE products SET ? WHERE ?";
+                  connection.query(query, 
+                        [
+                            {
+                                stock_quantity: newQuantity
+                            },
+                            {
+                                item_id: id
+                            }
+                        ],
+                    )
+                  
+                }
+                connection.end()
+            }
+           
+        )
+   
+    });
+}
