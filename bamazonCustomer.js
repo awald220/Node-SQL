@@ -40,13 +40,28 @@ function getId(){
             function(err, res){
                 if (err) throw err;
 
+                //get the items name
+                var itemName = res[0].product_name;
+
+                //get the quantity of the item
                 var quantity = res[0].stock_quantity;
                 console.log(quantity)
 
+                //get the price of the single item
+                var price = res[0].price;
+                console.log(price)
+
+                // determine if there is enought of the item in stock to fufil the order
                 if(amount > quantity){
                     console.log("Insufficient Quantity!")
                 } else{
+                  //  subtract the amount orders from current stock number
                   var newQuantity = quantity -= amount;
+
+                  // get the total price for items ordered
+                  var total = amount *= price;
+
+                  //get access to the database
                   var query = "UPDATE products SET ? WHERE ?";
                   connection.query(query, 
                         [
@@ -58,6 +73,7 @@ function getId(){
                             }
                         ],
                     )
+                    console.log(`Your order has been placed and your total is ${total}`)
                   
                 }
                 connection.end()
