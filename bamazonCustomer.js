@@ -46,7 +46,7 @@ function getId(){
                 if(amount > quantity){
                     console.log("Insufficient Quantity!")
                 } else{
-                  var newQuantity = stock_quantity =- amount;
+                  var newQuantity = quantity -= amount;
                   var query = "UPDATE products SET ? WHERE ?";
                   connection.query(query, 
                         [
