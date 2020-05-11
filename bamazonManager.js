@@ -32,7 +32,7 @@ function displayOptions() {
             lowInv()
         }else if (answer.options === "Add to Inventory"){
             addInv()
-        }else if(answer.options === "Add new Product"){
+        }else if(answer.options === "Add New Product"){
             addProduct()
         } else {
             exit()
@@ -114,9 +114,9 @@ function addInv(){
             } 
         );
         console.log(`You item has been updated to ${answer.inv}`)
-       
+       connection.end()
     })
-   
+  
 }
 
 function addProduct(){
@@ -160,7 +160,9 @@ function addProduct(){
                 console.log(`You have successfully added ${answer.name} to the inventory list!`)
             }
         )
+         connection.end()
     })
+   
 }
 
 function exit(){
