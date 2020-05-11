@@ -71,7 +71,6 @@ The SQL Database after the add product command was ran
 ![](images/sqlafteradd.png)
 
 
-
 # deployed links
 Portfolio: https://awald220.github.io/AW-Portfolio/portfolio.html
 
