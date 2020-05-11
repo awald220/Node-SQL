@@ -13,8 +13,23 @@ var connection = mysql.createConnection({
 connection.connect (function(err){
     if (err) throw err;
     console.log("connected as id " + connection.threadId + "\n");
-    getId()
+    displayItems()
 });
+
+function displayItems(){
+    var query = "SELECT * FROM products";
+    connection.query(
+        query,
+        function(err, res){
+            for(var i = 0; i < res.length; i++){
+                console.log(`
+                Product ID: ${res[i].item_id} Product Name: ${res[i].product_name} Product Price: ${res[i].price}
+                `)
+            }
+            getId()
+        }
+    )
+}
 
 function getId(){
     inquirer.prompt([
@@ -45,11 +60,9 @@ function getId(){
 
                 //get the quantity of the item
                 var quantity = res[0].stock_quantity;
-                console.log(quantity)
 
                 //get the price of the single item
                 var price = res[0].price;
-                console.log(price)
 
                 // determine if there is enought of the item in stock to fufil the order
                 if(amount > quantity){
