@@ -109,30 +109,29 @@ function addInv(){
         },
         {
             type: "input",
-            message: "How many items are you adding?",
+            message: "What do you want the stock quantity to be?",
             name: "inv"
         }
     ]).then(function(answer){
+   
         var query = "UPDATE products SET ? WHERE ?";
-        var newInv = answer.inv += stock_quantity;
-        var id = answer.id
         connection.query(
-            query, 
-            function(err, res){
-                if(err) throw err;
-              [ 
+            query,
+            [
                 {
-                    stock_quantity: newInv
+                    stock_quantity: answer.inv
                 },
                 {
-                    item_id: id
+                    item_id: answer.id
                 }
-             ]
-            }
-        )
-        console.log("Your item has been updated!")
+            ],
+            function(err, res){
+                if(err) throw err;
+            } 
+        );
+        console.log(`You item has been updated to ${answer.inv}`)
+       
     })
-    connection.end()
    
 }
 
