@@ -1,10 +1,9 @@
---creates the bamazon database--
+DROP DATABASE bamazon_db;
+
 CREATE DATABASE bamazon_db;
 
---tells the code to use the bamazon database
 USE bamazon_db;
 
---creates product table--
 CREATE TABLE products(
     item_id INTEGER(100) NOT NULL AUTO_INCREMENT,
     product_name VARCHAR(100) NOT NULL,
@@ -15,7 +14,7 @@ CREATE TABLE products(
 );
 
 
---items to insert into the table colums--
+
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("iPhone 11", "Electronics", 600.00, 3);
 
@@ -38,7 +37,7 @@ INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Chocolate Syrup", "Food", 3.00, 8);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
-VALUES ("Air Pods", "Electronics", 250.00. 2);
+VALUES ("Air Pods", "Electronics", 250.00, 2);
 
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Fishing Rod", "Outdoors/Recreation", 60.00, 7);
@@ -46,6 +45,4 @@ VALUES ("Fishing Rod", "Outdoors/Recreation", 60.00, 7);
 INSERT INTO products (product_name, department_name, price, stock_quantity)
 VALUES ("Soccer Ball", "Sports", 12.00, 80);
 
-
---show what is in the table columns--
 SELECT * FROM products;
