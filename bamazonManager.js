@@ -22,18 +22,39 @@ function displayOptions() {
             type: "list",
             message: "What option would you like?",
             choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product", "Exit"],
-            name: "options"
+            name: "options",
+            filter: function (val) {
+				if (val === 'View Products for Sale') {
+					return 'sale';
+				} else if (val === 'View Low Inventory') {
+					return 'lowInventory';
+				} else if (val === 'Add to Inventory') {
+					return 'addInventory';
+				} else if (val === 'Add New Product') {
+					return 'newProduct';
+				} else {
+					// This case should be unreachable
+					console.log('ERROR: Unsupported operation!');
+					exit(1);
+				}
+			}
 
         }
     ]).then(function(answer){
       
         if("View Products for Sale"){
-           viewProducts()
+       addInv()
+        } else if("View Low Inventory"){
+            lowInv()
+        }else if ("Add to Inventory"){
+            addInv()
+        }else if("Add new Product"){
+            addProduct()
+        } else {
+            exit()
         }
 
-       
-
-       
+    
 
         
     });
@@ -55,21 +76,26 @@ function viewProducts(){
             }
         )
         connection.end()
-}
+};
 
 function lowInv(){
     var query = "SELECT * FROM products";
         connection.query(
             query,
             function(err, res){
+                if(err) throw err;
                 for(var i = 0; i < res.length; i++){
-                    if(stock_quantity < 5){
-                        console.log(`Item ID: ${res[i].item_id} Quantity: ${res[i].stock_quantity}`)
+                    if(res[i].stock_quantity < 5){
+                        console.log(`
+                        Consider restocking this items!
+                        Item ID: ${res[i].item_id} Quantity: ${res[i].stock_quantity}`)
+                        
                     }
                 }
             }
 
         )
+        connection.end()
 }
 
 function addInv(){
@@ -106,7 +132,7 @@ function addInv(){
         )
         console.log("Your item has been updated!")
     })
-
+    connection.end()
    
 }
 
