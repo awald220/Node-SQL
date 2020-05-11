@@ -34,6 +34,34 @@ PART II
 # instructions 
 The user will be prompted to select what they want to do. Once they choose an option they follow the instructions that happen in terminal to complete the actions.
 
+# screen shots of working app
+The SQL database table before any commands are ran
+![] (images/sql-before.png)
+
+The terminal after customer file is ran
+![] (images/runCustomerJs.png)
+
+The SQL Database after the cusomter database was ran and an item_id 1 was purchased
+![] (images/sqlUpdatedQuantity.png)
+
+The terminal after the view products for sale command was ran
+![] (images/listItemsManager.png)
+
+The terminal after the view low inventory command was ran
+![] (images/viewlowinventoryManager.png)
+
+The terminal agter the update inventory command is ran
+![] (images/updateinvManager.png)
+
+The SQL database after the update inv command was ran
+![] (images/sqlafterinvupdate.png)
+
+The terminal after the add product command was ran
+![] (images/addproductManager.png)
+
+The SQL Database after the add product command was ran
+![] (Node-SQL/images/sqlafteradd.png)
+
 
 # deployed links
 Portfolio: https://awald220.github.io/AW-Portfolio/portfolio.html
