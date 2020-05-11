@@ -23,32 +23,16 @@ function displayOptions() {
             message: "What option would you like?",
             choices: ["View Products for Sale", "View Low Inventory", "Add to Inventory", "Add New Product", "Exit"],
             name: "options",
-            filter: function (val) {
-				if (val === 'View Products for Sale') {
-					return 'sale';
-				} else if (val === 'View Low Inventory') {
-					return 'lowInventory';
-				} else if (val === 'Add to Inventory') {
-					return 'addInventory';
-				} else if (val === 'Add New Product') {
-					return 'newProduct';
-				} else {
-					// This case should be unreachable
-					console.log('ERROR: Unsupported operation!');
-					exit(1);
-				}
-			}
-
         }
     ]).then(function(answer){
       
-        if("View Products for Sale"){
-       addInv()
-        } else if("View Low Inventory"){
+        if(answer.options === "View Products for Sale"){
+            viewProducts()
+        } else if(answer.options === "View Low Inventory"){
             lowInv()
-        }else if ("Add to Inventory"){
+        }else if (answer.options === "Add to Inventory"){
             addInv()
-        }else if("Add new Product"){
+        }else if(answer.options === "Add new Product"){
             addProduct()
         } else {
             exit()
@@ -136,8 +120,49 @@ function addInv(){
 }
 
 function addProduct(){
+    inquirer
+    .prompt([
+        {
+            type: "input",
+            message: "What is the name of your product?",
+            name: "name"
+        }, 
+        {
+            type: "input", 
+            message: "What department does your product go into?",
+            name: "department"
+        },
+        {
+            type: "input",
+            message: "What is the price?",
+            name: "price"
+        },
+        {
+            type: "input", 
+            message: "How many are you adding?",
+            name: "quantity"
+        }
+    ]).then(function(answer){
+        var query = "INSERT INTO products SET ?"
 
+        connection.query(
+            query, 
+            [
+                {
+                    product_name: answer.name,
+                    department_name: answer.department,
+                    price: answer.price,
+                    stock_quantity: answer.quantity
+                }
+            ],
+            function(err){
+                if(err) throw err;
+                console.log(`You have successfully added ${answer.name} to the inventory list!`)
+            }
+        )
+    })
 }
+
 function exit(){
     connection.end()
 }
